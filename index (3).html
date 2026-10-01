@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARMORY // Illustrated Gun Bestiary &amp; Catalog</title>
+<meta name="description" content="An illustrated field guide to 103 iconic firearms — catalog, loot crates, and collection vault.">
+</head>
+<body>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0e0d0b;color:#ece3d0;font-family:Georgia,serif;text-align:left}
+a{color:#e8b34b}
+.top{position:sticky;top:0;z-index:20;background:#141210ee;border-bottom:2px solid #e8b34b;padding:10px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.top h1{margin:0;font-size:20px;letter-spacing:2px}.top h1 span{color:#e8b34b}
+.top input{background:#0a0908;border:1px solid #6b5a36;color:#fff;padding:9px 12px;border-radius:8px;min-width:200px;flex:1;font-family:inherit}
+.top select,.top button{background:#1d1a15;border:1px solid #6b5a36;color:#ece3d0;padding:9px 12px;border-radius:8px;font-family:inherit;cursor:pointer}
+.top button{background:#e8b34b;color:#111;font-weight:700;border:0}
+.bar{display:flex;gap:8px;flex-wrap:wrap;padding:12px 14px;max-width:1200px;margin:0 auto;align-items:center}
+.pill{border:1px solid #6b5a36;border-radius:20px;padding:6px 12px;background:#1d1a15;color:#ece3d0;cursor:pointer;font-size:13px}
+.pill.on{background:#e8b34b;color:#111;border-color:#e8b34b;font-weight:700}
+.count{font-size:13px;opacity:.7;font-style:italic}
+.grid{max-width:1200px;margin:0 auto;padding:0 14px 80px;display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:14px}
+.card{background:linear-gradient(180deg,#211d17,#171411);border:1px solid #4a3f2a;border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .15s}
+.card:hover{transform:translateY(-3px);border-color:#e8b34b}
+.illus{background:radial-gradient(circle at 50% 60%,#f5e8c8 0%,#e6d3a3 55%,#c9ab6e 100%);padding:10px;position:relative}
+.illus svg{width:100%;height:110px;display:block}
+.rar{position:absolute;top:8px;left:8px;font-size:11px;padding:2px 8px;border-radius:20px;font-family:monospace;letter-spacing:1px}
+.r-C{background:#555;color:#fff}.r-U{background:#2d7a3a;color:#fff}.r-R{background:#2b6cb0;color:#fff}.r-E{background:#8b2fc9;color:#fff}.r-L{background:#c98a1b;color:#111;font-weight:700}
+.cls{position:absolute;top:8px;right:8px;font-size:11px;background:#111;color:#e8b34b;padding:2px 8px;border-radius:20px;font-family:monospace}
+.cardbody{padding:10px 12px}
+.cardbody h3{margin:0;font-size:17px}.cardbody h3 small{font-weight:400;opacity:.6;font-size:12px}
+.meta{font-size:12px;opacity:.75;font-family:monospace;margin:4px 0}
+.desc{font-size:13px;line-height:1.45;opacity:.9;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bars{display:flex;gap:6px;margin-top:8px}
+.b{flex:1}.b i{font-style:normal;font-size:10px;opacity:.7;font-family:monospace}.b u{display:block;height:5px;background:#333;border-radius:3px;overflow:hidden;text-decoration:none}.b u s{display:block;height:100%;background:#e8b34b}
+.modal{position:fixed;inset:0;background:#000c;display:none;z-index:50;overflow-y:auto;padding:18px}
+.modal.on{display:block}
+.sheet{max-width:860px;margin:0 auto;background:#1c1915;border:2px solid #e8b34b;border-radius:14px;overflow:hidden}
+.sheet .illus svg{height:190px}
+.shead{padding:16px 20px}.shead h2{margin:0;font-size:28px}.shead .sub{font-family:monospace;color:#e8b34b;font-size:13px}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 20px 20px}
+@media(max-width:700px){.sgrid{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:13px}td{padding:6px 4px;border-bottom:1px solid #333}td:first-child{opacity:.6;width:110px}
+.stat{margin:8px 0}.stat label{font-size:11px;font-family:monospace;letter-spacing:1px;display:flex;justify-content:space-between}.track{height:8px;background:#333;border-radius:4px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#8a6a1f,#e8b34b)}
+.fact{background:#26200f;border:1px dashed #e8b34b;border-radius:8px;padding:10px;font-style:italic;font-size:13px;margin-top:10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.row button{flex:1;min-width:120px;background:#e8b34b;border:0;border-radius:8px;padding:10px;font-weight:700;cursor:pointer}.row button.ghost{background:none;border:1px solid #e8b34b;color:#e8b34b}
+.x{float:right;background:none;border:1px solid #666;color:#fff;border-radius:8px;padding:6px 12px;cursor:pointer}
+.cmp{position:fixed;bottom:0;left:0;right:0;background:#141210f2;border-top:2px solid #e8b34b;padding:8px 14px;display:none;z-index:40;font-size:13px}
+.cmp.on{display:block}
+.hero{max-width:1200px;margin:0 auto;padding:18px 14px 0;display:flex;gap:14px;align-items:end;justify-content:space-between;flex-wrap:wrap}
+.hero p{max-width:620px;font-style:italic;opacity:.8;margin:6px 0}
+.vbtn.on{background:#e8b34b;color:#111;border-color:#e8b34b;font-weight:700}
+.scrap{background:#111;border:1px solid #e8b34b;color:#e8b34b;padding:9px 12px;border-radius:8px;font-family:monospace;white-space:nowrap}
+.crates{max-width:1200px;margin:0 auto;padding:0 14px 20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.crate{background:linear-gradient(180deg,#26200f,#171411);border:2px solid #6b5a36;border-radius:12px;padding:14px;text-align:center}
+.crate h3{margin:0 0 4px;letter-spacing:1px}.crate .cost{font-family:monospace;color:#e8b34b;font-size:18px;margin:6px 0}
+.crate p{font-size:13px;opacity:.8;min-height:34px}
+.crate button{background:#e8b34b;border:0;border-radius:8px;padding:10px 18px;font-weight:700;cursor:pointer;width:100%}
+.crate button:disabled{filter:grayscale(1);opacity:.5;cursor:default}
+.rollbox{max-width:1200px;margin:0 auto;padding:0 14px 20px}
+.roll{background:#0a0908;border:2px dashed #6b5a36;border-radius:12px;padding:22px;text-align:center;min-height:150px}
+.roll.hit{border-style:solid;animation:pop .45s}
+@keyframes pop{0%{transform:scale(.96)}60%{transform:scale(1.02)}100%{transform:scale(1)}}
+.roll .rname{font-size:26px;margin:8px 0}
+.roll .rsvg svg{width:min(420px,90%);height:130px}
+.sil{filter:brightness(0);opacity:.85}
+.miss{font-size:12px;opacity:.65;font-family:monospace;line-height:1.8}
+.obadge{position:absolute;top:34px;left:8px;font-size:11px;background:#111;color:#fff;padding:2px 8px;border-radius:20px;font-family:monospace}
+.scav{background:none;border:1px solid #e8b34b;color:#e8b34b;border-radius:8px;padding:10px 16px;cursor:pointer;font-family:inherit}
+</style>
+<div class="top">
+<h1>◈ <span>ARMORY</span> BESTIARY</h1>
+<input id="qInput" placeholder="Search 103 guns — try 'AK', '9mm', 'WW2', 'sniper'...">
+<select id="sortSel"><option value="name">Sort: Name</option><option value="dmg">Damage</option><option value="rpm">Fire rate</option><option value="year">Year</option><option value="rng">Range</option></select>
+<button id="randBtn">⚄ RANDOM</button>
+<span class="scrap">⚙ <b id="scrapEl">500</b> SCRAP</span>
+<button class="vbtn on" id="vCat">📖 CATALOG</button>
+<button class="vbtn" id="vLoot">📦 LOOT</button>
+<button class="vbtn" id="vCol">🏆 COLLECTION</button>
+</div>
+<div class="hero"><p>An illustrated field guide to the world's most iconic firearms — from flintlocks to railguns. Click any plate for full dossier, history & stats.</p><span class="count" id="countEl"></span></div>
+<div class="bar" id="pillRow"></div>
+<div class="grid" id="gridEl"></div>
+<div id="lootEl" hidden><div class="hero"><p>Crack crates, beat the odds, complete the bestiary. Duplicates auto-salvage into scrap. New discoveries pay +25 bonus.</p><span><button class="scav" id="scavBtn">🔧 SCAVENGE +50</button> <span class="count" id="lootCount"></span></span></div><div class="rollbox"><div class="roll" id="rollBox"><div style="opacity:.6">Select a crate below to begin the ritual…</div></div></div><div class="crates" id="crateRow"></div></div>
+<div id="colEl" hidden><div class="hero"><p id="colSummary"></p><span><span class="count" id="colCount"></span> <button class="scav" id="wipeBtn">🗑 RESET</button></span></div><div class="grid" id="colGrid" style="padding:0 0 80px"></div><div class="hero"><div class="miss" id="missEl"></div></div></div>
+<div class="modal" id="modalEl"><div class="sheet"><div class="illus" id="mIllus"></div><div class="shead"><button class="x" id="mClose">✕ CLOSE</button><h2 id="mName"></h2><div class="sub" id="mSub"></div><div class="row"><button id="mPrev">← PREV</button><button id="mCmp">⚖ COMPARE</button><button id="mNext">NEXT →</button></div></div><div class="sgrid"><div><h3 style="margin:0">📋 SPECIFICATIONS</h3><table id="mTable"></table><div class="fact" id="mFact"></div></div><div><h3 style="margin:0">📊 PERFORMANCE</h3><div id="mStats"></div><p style="font-size:13px;line-height:1.6" id="mDesc"></p><div class="row"><button class="ghost" id="mRand">⚄ Random entry</button></div></div></div></div></div>
+<div class="cmp" id="cmpEl"></div>
+<script>
+let G=[
+{n:"Glock 17",c:"Pistol",y:1982,co:"Austria",cal:"9×19mm",ac:"Striker, SA",wt:0.9,ln:204,cap:17,rpm:0,dmg:38,rng:50,han:92,rel:98,rar:"C",pr:"$500",d:"The ubiquitous polymer-framed striker pistol. Light, nearly indestructible, carried by police and armies in 48+ nations.",f:"Glock torture tests include burial, ice, mud — it still fires. Over 20 million made.",s:{bl:52,mg:"straight",sc:0,wd:0,st:"none",sp:0}},
+{n:"Colt M1911",c:"Pistol",y:1911,co:"USA",cal:".45 ACP",ac:"Short recoil SA",wt:1.1,ln:216,cap:7,rpm:0,dmg:52,rng:50,han:78,rel:90,rar:"R",pr:"$900",d:"Browning's legendary .45 served the US military for 74 years through two World Wars, Korea and Vietnam.",f:"Designed in 1911, it was still frontline issue in Desert Storm — an 80-year career.",s:{bl:55,mg:"straight",sc:0,wd:1,st:"none",sp:0}},
+{n:"Desert Eagle",c:"Pistol",y:1983,co:"USA / Israel",cal:".50 AE",ac:"Gas, rotating bolt",wt:2.0,ln:273,cap:7,rpm:0,dmg:82,rng:70,han:38,rel:72,rar:"E",pr:"$1,800",d:"A gas-operated hand cannon built around rifle mechanics. Movie icon, punishing recoil, unmistakable roar.",f:"At 2kg loaded it weighs more than some carbines — and can chamber .44 Magnum with a barrel swap.",s:{bl:72,mg:"straight",sc:0,wd:0,st:"none",sp:0}},
+{n:"Beretta 92FS",c:"Pistol",y:1975,co:"Italy",cal:"9×19mm",ac:"DA/SA",wt:0.97,ln:217,cap:15,rpm:0,dmg:40,rng:50,han:84,rel:94,rar:"U",pr:"$750",d:"The US M9 service pistol for 32 years. Open-slide design, buttery DA/SA trigger, Hollywood staple.",f:"The open-top slide almost never jams — ejected brass has a huge window to escape.",s:{bl:58,mg:"straight",sc:0,wd:0,st:"none",sp:0}},
+{n:"FN Five-seveN",c:"Pistol",y:1998,co:"Belgium",cal:"5.7×28mm",ac:"Delayed blowback",wt:0.61,ln:208,cap:20,rpm:0,dmg:44,rng:65,han:88,rel:90,rar:"R",pr:"$1,200",d:"Armor-piercing PDW pistol firing a miniature rifle round at 650 m/s. 20 rounds, almost no recoil.",f:"Its SS190 round was designed to defeat Soviet body armor at 200m — from a pistol.",s:{bl:56,mg:"straight",sc:0,wd:0,st:"none",sp:0}},
+{n:"Luger P08",c:"Pistol",y:1908,co:"Germany",cal:"9×19mm",ac:"Toggle-lock",wt:0.87,ln:222,cap:8,rpm:0,dmg:38,rng:50,han:70,rel:68,rar:"R",pr:"$2,500",d:"WWI & WWII icon with its bizarre knee-joint toggle that flips up on every shot. Precision jewel, mud's worst enemy.",f:"Collectors pay $5k+ for matching-number 1914 artillery models with 200mm barrels.",s:{bl:60,mg:"straight",sc:0,wd:1,st:"none",sp:0}},
+{n:"Mauser C96",c:"Pistol",y:1896,co:"Germany",cal:"7.63×25mm",ac:"Short recoil",wt:1.13,ln:312,cap:10,rpm:0,dmg:42,rng:80,han:55,rel:75,rar:"E",pr:"$3,000",d:"The 'Broomhandle' with wooden holster-stock that turns it into a carbine. Han Solo's DL-44 was built on one.",f:"Winston Churchill carried one at Omdurman in 1898 — and credited it with saving his life.",s:{bl:70,mg:"box",sc:0,wd:1,st:"wood",sp:0}},
+{n:"Walther PPK",c:"Pistol",y:1931,co:"Germany",cal:".380 ACP",ac:"Blowback DA/SA",wt:0.59,ln:155,cap:7,rpm:0,dmg:30,rng:35,han:90,rel:88,rar:"U",pr:"$800",d:"Bond's pocket pistol. Tiny blowback concealment gun that defined the spy aesthetic for a century.",f:"Ian Fleming armed Bond with it after a firearms expert wrote that Bond's Beretta was 'a lady's gun'.",s:{bl:38,mg:"straight",sc:0,wd:0,st:"none",sp:0}},
+{n:"Colt Python",c:"Revolver",y:1955,co:"USA",cal:".357 Magnum",ac:"DA revolver",wt:1.1,ln:241,cap:6,rpm:0,dmg:60,rng:60,han:72,rel:96,rar:"E",pr:"$1,600",d:"Hand-fitted 'Rolls-Royce of revolvers' with a vent-rib barrel. Mirror-blue finish collectors obsess over.",f:"Original 1950s Pythons sell for $4,000+ — skilled fitters spent hours on each action.",s:{bl:68,mg:"cyl",sc:0,wd:1,st:"none",sp:0}},
+{n:"S&W Model 29",c:"Revolver",y:1955,co:"USA",cal:".44 Magnum",ac:"DA revolver",wt:1.3,ln:264,cap:6,rpm:0,dmg:78,rng:65,han:50,rel:96,rar:"R",pr:"$1,100",d:"Dirty Harry's 'most powerful handgun in the world'. Massive N-frame .44 that made magnum culture mainstream.",f:"After the 1971 film, demand was so insane Smith & Wesson had a 2-year backorder.",s:{bl:75,mg:"cyl",sc:0,wd:1,st:"none",sp:0}},
+{n:"Chiappa Rhino",c:"Revolver",y:2009,co:"Italy",cal:".357 Magnum",ac:"DA, bottom barrel",wt:0.85,ln:210,cap:6,rpm:0,dmg:58,rng:55,han:80,rel:85,rar:"R",pr:"$1,000",d:"Revolver that fires from the BOTTOM chamber for near-zero muzzle flip. Looks like a sci-fi prop.",f:"Firing from 6 o'clock drops the bore axis to your knuckles — recoil pushes straight back.",s:{bl:60,mg:"cyl",sc:0,wd:0,st:"none",sp:0}},
+{n:"H&K MP5",c:"SMG",y:1966,co:"Germany",cal:"9×19mm",ac:"Roller-delayed",wt:2.5,ln:680,cap:30,rpm:800,dmg:34,rng:100,han:90,rel:96,rar:"R",pr:"$2,500",d:"The counter-terror icon — whisper-quiet suppressed, laser-accurate. SAS at the Iranian Embassy made it immortal.",f:"Navy SEALs and 60+ special units still use it 60 years on; the roller action is sewing-machine smooth.",s:{bl:80,mg:"curved",sc:0,wd:0,st:"wire",sp:1}},
+{n:"UZI",c:"SMG",y:1954,co:"Israel",cal:"9×19mm",ac:"Blowback, telescoping",wt:3.5,ln:640,cap:32,rpm:600,dmg:34,rng:90,han:82,rel:97,rar:"U",pr:"$1,400",d:"Stamped-steel brick built for desert war. Magazine inside the grip makes it tiny, brutally reliable.",f:"Uziel Gal designed it at 25; Israel made him carve his name into every receiver as royalties.",s:{bl:55,mg:"straight",sc:0,wd:0,st:"wire",sp:0}},
+{n:"FN P90",c:"SMG",y:1990,co:"Belgium",cal:"5.7×28mm",ac:"Blowback",wt:2.6,ln:500,cap:50,rpm:900,dmg:36,rng:120,han:95,rel:90,rar:"E",pr:"$2,000",d:"Bullpup PDW with a 50-round magazine lying flat on top. Stargate's alien-buster, armor-piercing from a toaster.",f:"Rounds rotate 90° inside the mag — a spiral feed ramp twists each bullet at the last instant.",s:{bl:60,mg:"top",sc:1,wd:0,st:"full",sp:0}},
+{n:"Thompson M1928",c:"SMG",y:1921,co:"USA",cal:".45 ACP",ac:"Blowback",wt:4.9,ln:851,cap:50,rpm:700,dmg:46,rng:90,han:55,rel:88,rar:"E",pr:"$2,800",d:"The Tommy Gun — gangster violin case, WWII trench sweeper, 50-round drum icon of the Roaring Twenties.",f:"In 1921 one cost $200 — two months' wages. The FBI bought them to outgun Dillinger's gang.",s:{bl:75,mg:"drum",sc:0,wd:1,st:"wood",sp:0}},
+{n:"MP40",c:"SMG",y:1940,co:"Germany",cal:"9×19mm",ac:"Blowback",wt:4.0,ln:833,cap:32,rpm:500,dmg:36,rng:100,han:75,rel:90,rar:"R",pr:"$2,200",d:"The 'Schmeisser' of Blitzkrieg — folding stock, Bakelite grips, paratrooper favorite from Stalingrad to Normandy.",f:"Hugo Schmeisser didn't design it — but GIs called every German SMG a Schmeisser anyway.",s:{bl:78,mg:"straight",sc:0,wd:0,st:"wire",sp:0}},
+{n:"PPSh-41",c:"SMG",y:1941,co:"USSR",cal:"7.62×25mm",ac:"Blowback",wt:3.6,ln:843,cap:71,rpm:1000,dmg:38,rng:110,han:68,rel:95,rar:"R",pr:"$1,000",d:"Stalingrad's buzzsaw — 71-round drum, 1,000 rpm, built in auto shops by teenagers. 6 million forged.",f:"Soviet tank crews carried them asbootstrap guns; Germans captured so many they re-chambered them to 9mm.",s:{bl:78,mg:"drum",sc:0,wd:1,st:"wood",sp:0}},
+{n:"KRISS Vector",c:"SMG",y:2006,co:"USA",cal:".45 ACP",ac:"Delayed, Super V",wt:2.7,ln:617,cap:25,rpm:1200,dmg:48,rng:90,han:88,rel:82,rar:"E",pr:"$1,700",d:"Recoil redirects DOWN into a sliding weight instead of up. Looks like a Halo gun, shoots .45 like 9mm.",f:"The bolt travels downward behind the mag — high-speed footage looks like the gun is folding.",s:{bl:62,mg:"straight",sc:1,wd:0,st:"wire",sp:0}},
+{n:"UMP45",c:"SMG",y:1999,co:"Germany",cal:".45 ACP",ac:"Blowback",wt:2.3,ln:690,cap:25,rpm:600,dmg:48,rng:95,han:84,rel:92,rar:"U",pr:"$1,600",d:"H&K's polymer successor to the MP5 — lighter, cheaper, .45 punch. US Border Patrol workhorse.",f:"It was designed so one receiver can swap between 9mm, .40 and .45 with a barrel/mag change.",s:{bl:70,mg:"straight",sc:0,wd:0,st:"wire",sp:0}},
+{n:"Remington 870",c:"Shotgun",y:1950,co:"USA",cal:"12 gauge",ac:"Pump",wt:3.5,ln:1067,cap:8,rpm:0,dmg:88,rng:35,han:70,rel:99,rar:"C",pr:"$450",d:"Best-selling shotgun in history — 11M+ made. The pump behind every police cruiser and duck blind.",f:"A single 870 design has run unchanged for 75 years; parts from 1950 fit a 2025 gun.",s:{bl:95,mg:"tube",sc:0,wd:1,st:"wood",sp:0}},
+{n:"Mossberg 500",c:"Shotgun",y:1961,co:"USA",cal:"12 gauge",ac:"Pump",wt:3.3,ln:1014,cap:8,rpm:0,dmg:86,rng:35,han:72,rel:98,rar:"C",pr:"$400",d:"The 870's eternal rival — tang safety, aluminum receiver, US Army's only approved pump.",f:"Mossberg won the Pentagon contract by surviving a 3,000-round torture test with zero parts failures.",s:{bl:92,mg:"tube",sc:0,wd:0,st:"full",sp:0}},
+{n:"SPAS-12",c:"Shotgun",y:1979,co:"Italy",cal:"12 gauge",ac:"Pump / semi-auto",wt:4.4,ln:1041,cap:8,rpm:0,dmg:90,rng:35,han:52,rel:78,rar:"L",pr:"$2,400",d:"Jurassic Park's folding-stock beast that flips pump-to-auto with a button. Menace silhouette, banned from import.",f:"US import was banned in 1989 — pre-ban folders now trade like classic cars.",s:{bl:88,mg:"tube",sc:0,wd:0,st:"wire",sp:0}},
+{n:"Saiga-12",c:"Shotgun",y:1994,co:"Russia",cal:"12 gauge",ac:"Gas, Kalashnikov",wt:3.6,ln:1145,cap:10,rpm:0,dmg:84,rng:40,han:66,rel:94,rar:"R",pr:"$900",d:"An AK that eats shotgun shells. Box-mag fed, riot-gun rate of fire, competition monster.",f:"It's literally an AKM receiver scaled up — the bolt and gas system are pure Kalashnikov.",s:{bl:90,mg:"boxmag",sc:0,wd:0,st:"full",sp:0}},
+{n:"Benelli M4",c:"Shotgun",y:1999,co:"Italy",cal:"12 gauge",ac:"Gas ARGO semi",wt:3.8,ln:1010,cap:7,rpm:0,dmg:86,rng:40,han:74,rel:96,rar:"R",pr:"$2,000",d:"US Marine Corps M1014 — self-regulating gas, ghost-ring sights, the semi-auto combat standard.",f:"Its ARGO pistons sit right at the muzzle to steal gas before shot leaves — zero tuning needed.",s:{bl:88,mg:"tube",sc:1,wd:0,st:"full",sp:0}},
+{n:"Winchester 1894",c:"Rifle",y:1894,co:"USA",cal:".30-30 Win",ac:"Lever",wt:3.1,ln:965,cap:7,rpm:0,dmg:62,rng:180,han:80,rel:92,rar:"U",pr:"$1,000",d:"The rifle that won the West's second act — lever-action deer slayer, 7M+ made, still in production.",f:"John Browning's action was designed for smokeless powder — the first American sporting repeater to do so.",s:{bl:92,mg:"tube",sc:0,wd:1,st:"wood",sp:0}},
+{n:"Kar98k",c:"Rifle",y:1935,co:"Germany",cal:"7.92×57mm",ac:"Bolt",wt:3.9,ln:1110,cap:5,rpm:0,dmg:74,rng:400,han:62,rel:94,rar:"R",pr:"$800",d:"Wehrmacht's bolt-action backbone — Mauser perfection, stripper-clip fed, sniper variants reached 1,000m.",f:"The Mauser 98 action is copied in nearly every modern hunting rifle — a 125-year-old blueprint.",s:{bl:100,mg:"box",sc:0,wd:1,st:"wood",sp:0}},
+{n:"M1 Garand",c:"Rifle",y:1936,co:"USA",cal:".30-06",ac:"Gas semi-auto",wt:4.3,ln:1107,cap:8,rpm:0,dmg:72,rng:350,han:60,rel:92,rar:"R",pr:"$1,200",d:"Patton's 'greatest battle implement ever devised'. Famous en-bloc PING that ejects with a ring heard in every WWII film.",f:"That ping is real — and GIs learned to fake it with an empty clip to bait enemy rushes.",s:{bl:98,mg:"box",sc:0,wd:1,st:"wood",sp:0}},
+{n:"Lee-Enfield No.4",c:"Rifle",y:1941,co:"UK",cal:".303 British",ac:"Bolt",wt:4.1,ln:1130,cap:10,rpm:0,dmg:70,rng:400,han:64,rel:95,rar:"U",pr:"$600",d:"The fastest bolt ever — trained Tommies fired 30 aimed rounds a minute, the 'mad minute'.",f:"Its cock-on-closing action lets you cycle with two fingers while keeping your eye on target.",s:{bl:100,mg:"box",sc:0,wd:1,st:"wood",sp:0}},
+{n:"Mosin-Nagant",c:"Rifle",y:1891,co:"Russia",cal:"7.62×54mmR",ac:"Bolt",wt:4.0,ln:1232,cap:5,rpm:0,dmg:74,rng:400,han:55,rel:97,rar:"C",pr:"$350",d:"Crude, immortal Tsarist bolt-gun — 37M built, fought in 30 wars, still sniping today with 1890s ammo.",f:"Finnish Simo Häyhä scored 505 kills with an iron-sighted Mosin — the deadliest sniper ever.",s:{bl:108,mg:"box",sc:0,wd:1,st:"wood",sp:0}},
+{n:"SKS",c:"Rifle",y:1945,co:"USSR",cal:"7.62×39mm",ac:"Gas semi, tilting bolt",wt:3.9,ln:1021,cap:10,rpm:0,dmg:60,rng:300,han:70,rel:96,rar:"C",pr:"$450",d:"The AK's older brother — fixed 10-round mag fed by stripper clips, bayonet folded under the barrel.",f:"It was obsolete on arrival next to the AK — yet 15M were made and it still parades worldwide.",s:{bl:95,mg:"box",sc:0,wd:1,st:"wood",sp:0}},
+{n:"AK-47",c:"Assault Rifle",y:1949,co:"USSR",cal:"7.62×39mm",ac:"Gas, rotating bolt",wt:3.5,ln:880,cap:30,rpm:600,dmg:62,rng:300,han:75,rel:99,rar:"L",pr:"$700",d:"The most produced firearm ever — 100M+ including copies. Buried in mud, run over, still fires.",f:"Mikhail Kalashnikov was a tank mechanic with no formal training when he sketched it in hospital in 1941.",s:{bl:82,mg:"curved",sc:0,wd:1,st:"wood",sp:0}},
+{n:"M16 / M4",c:"Assault Rifle",y:1964,co:"USA",cal:"5.56×45mm",ac:"Direct impingement",wt:2.9,ln:840,cap:30,rpm:750,dmg:55,rng:400,han:85,rel:86,rar:"C",pr:"$800",d:"America's black rifle — lightweight, accurate, modular to infinity. 60 years of service from jungle to desert.",f:"Early jams in Vietnam came from switching powder without chrome chambers — fixed by the A1 in 1967.",s:{bl:80,mg:"curved",sc:1,wd:0,st:"wire",sp:0}},
+{n:"FN SCAR-H",c:"Assault Rifle",y:2009,co:"Belgium / USA",cal:"7.62×51mm",ac:"Short-stroke piston",wt:3.6,ln:965,cap:20,rpm:600,dmg:72,rng:500,han:78,rel:95,rar:"E",pr:"$3,200",d:"SOCOM's modular battle rifle — folding polymer stock, monolithic rail, piston-driven precision.",f:"It beat 8 rivals in USSOCOM trials firing 30,000 rounds with just 3 stoppages.",s:{bl:85,mg:"straight",sc:1,wd:0,st:"wire",sp:0}},
+{n:"Steyr AUG",c:"Assault Rifle",y:1978,co:"Austria",cal:"5.56×45mm",ac:"Bullpup, piston",wt:3.6,ln:790,cap:30,rpm:650,dmg:56,rng:380,han:88,rel:90,rar:"R",pr:"$2,000",d:"Sci-fi bullpup from 1978 — translucent mags, integrated scope, full-length barrel in a carbine body.",f:"Die Hard made it famous; Austria issued it with an optic as standard 20 years before anyone else.",s:{bl:78,mg:"straight",sc:2,wd:0,st:"full",sp:0}},
+{n:"FAMAS F1",c:"Assault Rifle",y:1978,co:"France",cal:"5.56×45mm",ac:"Lever-delayed",wt:3.6,ln:757,cap:25,rpm:1000,dmg:55,rng:350,han:82,rel:78,rar:"R",pr:"$2,500",d:"'Le Clairon' — France's trumpet-shaped bullpup with a 1,000-rpm buzz and bipod legs.",f:"Its oversized trigger guard fits winter mittens — and the whole rifle fits in a car trunk.",s:{bl:75,mg:"straight",sc:1,wd:0,st:"full",sp:0}},
+{n:"H&K G36",c:"Assault Rifle",y:1997,co:"Germany",cal:"5.56×45mm",ac:"Short-stroke piston",wt:3.6,ln:998,cap:30,rpm:750,dmg:56,rng:400,han:84,rel:88,rar:"U",pr:"$1,800",d:"Translucent-mag German service rifle with built-in dual optics — red dot over 3x scope.",f:"Controversy: sustained desert fire could soften the polymer receiver and shift zero — since fixed.",s:{bl:82,mg:"straight",sc:2,wd:0,st:"wire",sp:0}},
+{n:"IWI Tavor X95",c:"Assault Rifle",y:2009,co:"Israel",cal:"5.56×45mm",ac:"Bullpup, piston",wt:3.2,ln:640,cap:30,rpm:750,dmg:55,rng:350,han:92,rel:93,rar:"R",pr:"$1,900",d:"Israel's bullpup standard — carbine-short, rifle-fast, built for house-to-house desert fighting.",f:"Designed after soldiers found M16s too long to exit APCs — the X95 is 26 inches total.",s:{bl:65,mg:"curved",sc:1,wd:0,st:"full",sp:0}},
+{n:"FN FAL",c:"Battle Rifle",y:1953,co:"Belgium",cal:"7.62×51mm",ac:"Tilt-lock gas",wt:4.3,ln:1090,cap:20,rpm:650,dmg:74,rng:500,han:62,rel:93,rar:"R",pr:"$1,700",d:"'The right arm of the Free World' — adopted by 90 countries, Cold War NATO's hammer.",f:"The UK tested it against the EM-2; politics killed the better bullpup and kept the FAL.",s:{bl:92,mg:"straight",sc:0,wd:1,st:"wood",sp:0}},
+{n:"H&K G3",c:"Battle Rifle",y:1959,co:"Germany",cal:"7.62×51mm",ac:"Roller-delayed",wt:4.4,ln:1025,cap:20,rpm:550,dmg:74,rng:500,han:60,rel:94,rar:"U",pr:"$1,200",d:"Roller-locked Cold War tank — violent, accurate, free-floated barrel before it was cool.",f:"Its fluted chamber leaves striped brass — reloaders can spot G3 brass instantly.",s:{bl:90,mg:"straight",sc:1,wd:0,st:"full",sp:0}},
+{n:"M14",c:"Battle Rifle",y:1959,co:"USA",cal:"7.62×51mm",ac:"Gas, Garand action",wt:4.1,ln:1127,cap:20,rpm:750,dmg:74,rng:500,han:60,rel:90,rar:"U",pr:"$1,500",d:"Garand evolved — select-fire .30 that failed in Vietnam jungles but became a beloved DMR.",f:"M14s pulled from storage scored kills in Iraq 40 years later as accurized EBRs.",s:{bl:95,mg:"straight",sc:0,wd:1,st:"wood",sp:0}},
+{n:"AR-10",c:"Battle Rifle",y:1956,co:"USA",cal:"7.62×51mm",ac:"Direct impingement",wt:3.3,ln:1029,cap:20,rpm:0,dmg:72,rng:550,han:80,rel:86,rar:"U",pr:"$1,300",d:"The AR-15's bigger father — Eugene Stoner's original .308 that lost the trials and won history.",f:"Portugal and Sudan adopted it; its tooling literally became the M16.",s:{bl:92,mg:"straight",sc:2,wd:0,st:"wire",sp:0}},
+{n:"Dragunov SVD",c:"DMR",y:1963,co:"USSR",cal:"7.62×54mmR",ac:"Short-stroke gas",wt:4.3,ln:1225,cap:10,rpm:0,dmg:78,rng:800,han:58,rel:94,rar:"R",pr:"$2,000",d:"Not a sniper — a squad marksman rifle. Skeleton stock, PSO-1 scope with nuclear rangefinder.",f:"Its scope has a stadiametric scale sized for a 1.7m man — bracket him and read the range.",s:{bl:110,mg:"curved",sc:2,wd:1,st:"wood",sp:0}},
+{n:"M21 / M14 EBR",c:"DMR",y:1969,co:"USA",cal:"7.62×51mm",ac:"Gas semi",wt:5.0,ln:1127,cap:20,rpm:0,dmg:76,rng:750,han:55,rel:90,rar:"R",pr:"$2,800",d:"Glass-bedded M14 in an aluminum chassis — Vietnam tunnel rat turned Afghan 800m scalpel.",f:"Navy SEALs still run Mk 14 EBRs because .308 punches through mud walls 5.56 can't.",s:{bl:98,mg:"straight",sc:2,wd:0,st:"full",sp:1}},
+{n:"Barrett M82",c:"Sniper",y:1989,co:"USA",cal:".50 BMG",ac:"Recoil semi-auto",wt:14.0,ln:1450,cap:10,rpm:0,dmg:100,rng:1800,han:25,rel:90,rar:"L",pr:"$9,000",d:"Anti-materiel legend — stops trucks, punches through walls at a mile. Shoulder-fired artillery.",f:"A M82 disabled an Iraqi APC at 1,600m — longest .50 semi-auto kill on record.",s:{bl:125,mg:"boxmag",sc:2,wd:0,st:"full",sp:1}},
+{n:"AWP",c:"Sniper",y:1988,co:"UK",cal:".308 Win",ac:"Bolt",wt:6.0,ln:1180,cap:10,rpm:0,dmg:85,rng:900,han:50,rel:95,rar:"E",pr:"$4,500",d:"Arctic Warfare Police — green-stocked Counter-Strike icon, fluted barrel, buttery 6-lug bolt.",f:"Swedish troops left them frozen at -40° for weeks — they still shot sub-MOA.",s:{bl:112,mg:"boxmag",sc:2,wd:0,st:"full",sp:1}},
+{n:"Remington 700",c:"Sniper",y:1962,co:"USA",cal:".308 Win",ac:"Bolt",wt:3.6,ln:1115,cap:5,rpm:0,dmg:80,rng:800,han:60,rel:93,rar:"U",pr:"$700",d:"America's bolt-action — M24 and M40 sniper systems are just accurized 700s. Deer to Delta.",f:"The aftermarket is so vast you can build a '700' with zero Remington parts.",s:{bl:110,mg:"box",sc:2,wd:1,st:"wood",sp:0}},
+{n:"CheyTac M200",c:"Sniper",y:2001,co:"USA",cal:".408 CheyTac",ac:"Bolt",wt:12.2,ln:1400,cap:7,rpm:0,dmg:96,rng:2200,han:28,rel:85,rar:"L",pr:"$12,000",d:"Intervention — 2,300m record holder, balanced-flight .408 round, Shooter-movie star.",f:"Its round stays supersonic past 2,000m — where .50 BMG has already gone wobbly.",s:{bl:122,mg:"boxmag",sc:2,wd:0,st:"full",sp:1}},
+{n:"M249 SAW",c:"Machine Gun",y:1984,co:"USA / Belgium",cal:"5.56×45mm",ac:"Gas, belt/box",wt:7.5,ln:1041,cap:200,rpm:800,dmg:52,rng:600,han:42,rel:88,rar:"R",pr:"$4,000",d:"Squad Automatic Weapon — belt-fed bullet hose with a 200-round box, quick-change barrel.",f:"Gunners carry the spare barrel like a briefcase — swaps in 6 seconds when glowing.",s:{bl:95,mg:"boxmag",sc:0,wd:0,st:"wire",sp:1}},
+{n:"MG42",c:"Machine Gun",y:1942,co:"Germany",cal:"7.92×57mm",ac:"Recoil, roller",wt:11.6,ln:1220,cap:250,rpm:1500,dmg:66,rng:800,han:30,rel:90,rar:"L",pr:"$5,000",d:"'Hitler's Buzzsaw' — 1,500 rpm ripping canvas. The sound alone routed squads; still serves as MG3.",f:"US training films told GIs its bark was worse than its bite — then added: keep your heads down anyway.",s:{bl:100,mg:"belt",sc:0,wd:0,st:"full",sp:1}},
+{n:"PKM",c:"Machine Gun",y:1969,co:"USSR",cal:"7.62×54mmR",ac:"Gas",wt:7.5,ln:1192,cap:100,rpm:650,dmg:66,rng:800,han:40,rel:98,rar:"U",pr:"$3,000",d:"Kalashnikov's machine gun — 50 years, every warzone, never jams. The AK's big brother.",f:"It's lighter than an M249 while firing full-power rifle rounds — Soviet weight magic.",s:{bl:102,mg:"belt",sc:0,wd:1,st:"wood",sp:1}},
+{n:"M2 Browning",c:"Machine Gun",y:1933,co:"USA",cal:".50 BMG",ac:"Recoil, belt",wt:38.0,ln:1653,cap:110,rpm:550,dmg:95,rng:1800,han:15,rel:99,rar:"E",pr:"$14,000",d:"'Ma Deuce' — 100 years old, still on every Humvee. John Browning's 1918 masterpiece that never retired.",f:"Armorers gauge its headspace with a 'go/no-go' ritual unchanged since 1933.",s:{bl:118,mg:"belt",sc:0,wd:0,st:"full",sp:1}},
+{n:"Ruger 10/22",c:"Rifle",y:1964,co:"USA",cal:".22 LR",ac:"Blowback semi",wt:2.3,ln:940,cap:25,rpm:0,dmg:18,rng:100,han:95,rel:97,rar:"C",pr:"$250",d:"The first gun for 10 million shooters — $0.05 plinking, infinite mods, squirrel to Appleseed.",f:"Aftermarket stocks turn it into anything from a Tommy gun to a precision trainer.",s:{bl:88,mg:"boxmag",sc:0,wd:1,st:"wood",sp:0}},
+{n:"Brown Bess",c:"Rifle",y:1722,co:"UK",cal:".75 flintlock",ac:"Muzzleloader",wt:4.4,ln:1580,cap:1,rpm:0,dmg:55,rng:60,han:40,rel:55,rar:"R",pr:"$1,800",d:"The musket that built an empire — smoothbore, bayonet lug, volley fire from Plassey to Waterloo.",f:"Trained redcoats fired 3 shots a minute; the .75 ball was inaccurate past 80m — so they fired in walls.",s:{bl:130,mg:"box",sc:0,wd:1,st:"wood",sp:0}},
+{n:"Colt SAA Peacemaker",c:"Revolver",y:1873,co:"USA",cal:".45 Colt",ac:"Single-action",wt:1.0,ln:280,cap:6,rpm:0,dmg:58,rng:60,han:68,rel:92,rar:"R",pr:"$1,500",d:"The Peacemaker of the frontier — single-action click, cowboy legend, still in production 150 years on.",f:"The 4 clicks of cocking are called the cowboy Cadillac — collectors pay extra for 1st-gen 1870s guns.",s:{bl:72,mg:"cyl",sc:0,wd:1,st:"none",sp:0}},
+{n:"Webley Mk VI",c:"Revolver",y:1915,co:"UK",cal:".455 Webley",ac:"Top-break DA",wt:1.1,ln:286,cap:6,rpm:0,dmg:54,rng:50,han:65,rel:90,rar:"U",pr:"$900",d:"The Somme's top-break tank — snaps open, ejects all six at once, beloved by Tommies and adventurers.",f:"It can be reloaded in 3 seconds with a speedloader — unheard of for a 1915 revolver.",s:{bl:68,mg:"cyl",sc:0,wd:1,st:"none",sp:0}},
+{n:"Nagant M1895",c:"Revolver",y:1895,co:"Russia",cal:"7.62 Nagant",ac:"Gas-seal DA",wt:0.8,ln:234,cap:7,rpm:0,dmg:34,rng:45,han:60,rel:93,rar:"U",pr:"$400",d:"The only revolver that seals its cylinder gap — whisper-suppressible, issued to Soviet officers for 50 years.",f:"The cylinder slides forward on cocking, sealing the barrel — the one revolver a suppressor truly works on.",s:{bl:58,mg:"cyl",sc:0,wd:1,st:"none",sp:0}},
+{n:"Henry 1860",c:"Rifle",y:1860,co:"USA",cal:".44 Henry",ac:"Lever",wt:4.2,ln:1120,cap:16,rpm:0,dmg:50,rng:150,han:62,rel:80,rar:"E",pr:"$2,200",d:"Lincoln's 'sixteen-shooter' — brass-frame lever gun that outgunned muzzleloaders 16 to 1.",f:"Confederates called it 'that damned Yankee rifle you load on Sunday and shoot all week'.",s:{bl:98,mg:"tube",sc:0,wd:1,st:"wood",sp:0}},
+{n:"Winchester 1873",c:"Rifle",y:1873,co:"USA",cal:".44-40",ac:"Lever",wt:3.9,ln:1120,cap:15,rpm:0,dmg:55,rng:170,han:72,rel:88,rar:"R",pr:"$1,400",d:"'The gun that won the West' — shared ammo with your revolver, slick toggle-link lever.",f:"An 1873 in .44-40 pairs with a Colt SAA in the same caliber — one cartridge belt for both.",s:{bl:98,mg:"tube",sc:0,wd:1,st:"wood",sp:0}},
+{n:"Springfield 1903",c:"Rifle",y:1903,co:"USA",cal:".30-06",ac:"Bolt",wt:3.9,ln:1100,cap:5,rpm:0,dmg:73,rng:500,han:60,rel:93,rar:"U",pr:"$850",d:"America's Mauser — butter-smooth bolt, ladder sights to 2,000 yards, Marine sniper in WWI.",f:"The US paid Mauser royalties on every 1903 until WWI — then seized the patents as war reparations.",s:{bl:102,mg:"box",sc:0,wd:1,st:"wood",sp:0}},
+{n:"Arisaka Type 99",c:"Rifle",y:1939,co:"Japan",cal:"7.7×58mm",ac:"Bolt",wt:3.8,ln:1120,cap:5,rpm:0,dmg:70,rng:450,han:58,rel:92,rar:"U",pr:"$450",d:"The Chrysanthemum rifle — chrome-lined bore, anti-aircraft wings on the sights, last-ditch variants crude but deadly.",f:"Early-war 99s are among the strongest bolt actions ever tested — P.O. Ackley blew up rifles proving it.",s:{bl:102,mg:"box",sc:0,wd:1,st:"wood",sp:0}},
+{n:"Carcano M91",c:"Rifle",y:1891,co:"Italy",cal:"6.5×52mm",ac:"Bolt",wt:3.4,ln:1280,cap:6,rpm:0,dmg:66,rng:400,han:58,rel:85,rar:"C",pr:"$300",d:"Infamous and misunderstood — en-bloc clip Italian service rifle, gain-twist rifling, unfairly maligned.",f:"Gain-twist barrels start slow and speed up — Carcano was decades ahead in barrel theory.",s:{bl:108,mg:"box",sc:0,wd:1,st:"wood",sp:0}},
+{n:"M1 Carbine",c:"Rifle",y:1942,co:"USA",cal:".30 Carbine",ac:"Gas semi",wt:2.4,ln:904,cap:15,rpm:0,dmg:42,rng:200,han:92,rel:90,rar:"C",pr:"$800",d:"The paratrooper's baby Garand — light, handy, 6M made; loved by support troops, hated for weak punch.",f:"Audie Murphy, America's most decorated soldier, called the carbine his favorite weapon.",s:{bl:80,mg:"boxmag",sc:0,wd:1,st:"wood",sp:0}},
+{n:"MAS-36",c:"Rifle",y:1936,co:"France",cal:"7.5×54mm",ac:"Bolt",wt:3.7,ln:1020,cap:5,rpm:0,dmg:68,rng:400,han:62,rel:90,rar:"U",pr:"$500",d:"France's ugly-strong bolt gun — bayonet stored in the stock tube, built to survive conscripts.",f:"The bayonet lives inside the forend — flip it out and stack it nose-to-tail like Lego.",s:{bl:96,mg:"box",sc:0,wd:1,st:"wood",sp:0}},
+{n:"SVT-40",c:"Rifle",y:1940,co:"USSR",cal:"7.62×54mmR",ac:"Gas semi",wt:3.9,ln:1226,cap:10,rpm:0,dmg:69,rng:400,han:60,rel:78,rar:"R",pr:"$1,300",d:"Tokarev's semi-auto answer to Barbarossa — complex, muzzle-braked, the thinking man's Eastern Front rifle.",f:"Captured SVTs inspired the German G43 — the student copied the teacher mid-war.",s:{bl:100,mg:"boxmag",sc:0,wd:1,st:"wood",sp:0}},
+{n:"Tokarev TT-33",c:"Pistol",y:1930,co:"USSR",cal:"7.62×25mm",ac:"Short recoil SA",wt:0.85,ln:196,cap:8,rpm:0,dmg:44,rng:55,han:72,rel:92,rar:"C",pr:"$350",d:"Soviet slab of a pistol — screams through helmets at 400 m/s, copied by half the Eastern Bloc.",f:"Its bottleneck round pierces Level II vests that stop .45 cold — velocity beats mass.",s:{bl:50,mg:"straight",sc:0,wd:0,st:"none",sp:0}},
+{n:"Makarov PM",c:"Pistol",y:1951,co:"USSR",cal:"9×18mm",ac:"Blowback DA/SA",wt:0.73,ln:161,cap:8,rpm:0,dmg:32,rng:35,han:86,rel:95,rar:"C",pr:"$300",d:"The AK's little brother — simple as a hammer, KGB pocket staple for 40 years.",f:"It has just 27 parts — field-strips in seconds with no tools.",s:{bl:36,mg:"straight",sc:0,wd:0,st:"none",sp:0}},
+{n:"CZ-75",c:"Pistol",y:1975,co:"Czechoslovakia",cal:"9×19mm",ac:"DA/SA",wt:1.0,ln:206,cap:16,rpm:0,dmg:42,rng:50,han:88,rel:94,rar:"U",pr:"$650",d:"The wonder-nine that out-shot everything but couldn't be imported — smuggled fame, now a competition king.",f:"Its slide rides INSIDE the frame rails — tighter lockup, legendary accuracy.",s:{bl:54,mg:"straight",sc:0,wd:0,st:"none",sp:0}},
+{n:"SIG P226",c:"Pistol",y:1984,co:"Switzerland",cal:"9×19mm",ac:"DA/SA",wt:0.96,ln:196,cap:15,rpm:0,dmg:42,rng:50,han:86,rel:97,rar:"R",pr:"$1,000",d:"Lost the US trials by a coin toss, won the SEALs — the pistol that refused to jam, ever.",f:"Navy SEALs picked it after it fired 20,000 rounds in testing without a single stoppage.",s:{bl:52,mg:"straight",sc:0,wd:0,st:"none",sp:0}},
+{n:"HK USP",c:"Pistol",y:1993,co:"Germany",cal:".45 ACP",ac:"DA/SA, recoil",wt:0.79,ln:200,cap:12,rpm:0,dmg:50,rng:50,han:82,rel:96,rar:"R",pr:"$950",d:"Over-engineered German tank — O-ring barrel, recoil buffer, built for +P punishment forever.",f:"The USP survived a 30,000-round SOCOM test that melted rival frames.",s:{bl:54,mg:"straight",sc:0,wd:0,st:"none",sp:0}},
+{n:"Browning Hi-Power",c:"Pistol",y:1935,co:"Belgium",cal:"9×19mm",ac:"SA, linked",wt:0.88,ln:197,cap:13,rpm:0,dmg:40,rng:50,han:84,rel:92,rar:"U",pr:"$850",d:"Browning's last design — first high-capacity 9mm, carried on both sides of WWII.",f:"Both Allies and Nazis made it — the same FN factory built them for whoever held Belgium.",s:{bl:52,mg:"straight",sc:0,wd:0,st:"none",sp:0}},
+{n:"Nambu Type 14",c:"Pistol",y:1926,co:"Japan",cal:"8×22mm Nambu",ac:"Recoil",wt:0.9,ln:230,cap:8,rpm:0,dmg:28,rng:35,han:62,rel:60,rar:"R",pr:"$700",d:"Officer's status symbol with a cocking bar on the side — weak round, fussy mag, fascinating design.",f:"US Marines prized captured Nambus — then learned the sear could fire if you squeezed the grip wrong.",s:{bl:56,mg:"straight",sc:0,wd:1,st:"none",sp:0}},
+{n:"MP18",c:"SMG",y:1918,co:"Germany",cal:"9×19mm",ac:"Blowback",wt:4.2,ln:815,cap:32,rpm:550,dmg:34,rng:100,han:60,rel:82,rar:"L",pr:"$3,500",d:"The FIRST submachine gun — trench stormtrooper's snail-drum sweeper that invented a whole class.",f:"The Treaty of Versailles named it by name — Germany had to surrender every single one.",s:{bl:76,mg:"drum",sc:0,wd:1,st:"wood",sp:0}},
+{n:"Sten Mk II",c:"SMG",y:1941,co:"UK",cal:"9×19mm",ac:"Blowback",wt:3.2,ln:760,cap:32,rpm:550,dmg:32,rng:80,han:68,rel:72,rar:"C",pr:"$500",d:"The £2 plumber's nightmare — stamped tube that armed the Resistance, jammed if you looked at it.",f:"A Sten cost less than a bicycle — Britain made 4 million in garden sheds and car factories.",s:{bl:70,mg:"straight",sc:0,wd:0,st:"wire",sp:0}},
+{n:"M3 Grease Gun",c:"SMG",y:1943,co:"USA",cal:".45 ACP",ac:"Blowback",wt:3.7,ln:757,cap:30,rpm:450,dmg:46,rng:85,han:70,rel:88,rar:"U",pr:"$600",d:"Detroit's answer to the Thompson — two stamped halves, slow thump, served into Desert Storm.",f:"It cost $15 to make versus $200 for a Thompson — the Pentagon called it beautifully disposable.",s:{bl:66,mg:"straight",sc:0,wd:0,st:"wire",sp:0}},
+{n:"PPS-43",c:"SMG",y:1943,co:"USSR",cal:"7.62×25mm",ac:"Blowback",wt:3.0,ln:820,cap:35,rpm:700,dmg:36,rng:110,han:74,rel:93,rar:"U",pr:"$700",d:"Leningrad's folded-steel lifeline — built during the siege, lighter and handier than the PPSh.",f:"The whole gun is folded sheet metal — a factory could stamp one in 2.7 hours.",s:{bl:68,mg:"curved",sc:0,wd:0,st:"wire",sp:0}},
+{n:"MAC-10",c:"SMG",y:1970,co:"USA",cal:".45 ACP",ac:"Blowback",wt:2.8,ln:548,cap:30,rpm:1100,dmg:48,rng:60,han:58,rel:75,rar:"R",pr:"$800",d:"The gangster brick — buzzsaw rate, suppressor-ready threads, Hollywood's favorite 70s bullet hose.",f:"With a suppressor it whispers — the bolt slap is louder than the shot.",s:{bl:48,mg:"straight",sc:0,wd:0,st:"wire",sp:1}},
+{n:"MP7",c:"SMG",y:2001,co:"Germany",cal:"4.6×30mm",ac:"Gas",wt:1.9,ln:638,cap:40,rpm:950,dmg:38,rng:150,han:94,rel:88,rar:"E",pr:"$2,200",d:"A pistol-sized armor killer — 40 rounds of needle rounds that punch CRISAT vests at 200m.",f:"Its round tumbles on impact — a 2-gram bullet that hits like a hornet swarm.",s:{bl:52,mg:"straight",sc:1,wd:0,st:"wire",sp:0}},
+{n:"CZ Scorpion EVO",c:"SMG",y:2009,co:"Czechia",cal:"9×19mm",ac:"Blowback",wt:2.8,ln:670,cap:30,rpm:1100,dmg:36,rng:100,han:90,rel:90,rar:"R",pr:"$1,100",d:"Polymer Czech wasp — crisp trigger, 1,100-rpm chatter, modern police favorite worldwide.",f:"The EVO's fire selector has 4 positions — safe, semi, 3-round, full — in a 9mm.",s:{bl:60,mg:"straight",sc:1,wd:0,st:"wire",sp:0}},
+{n:"Winchester 1897",c:"Shotgun",y:1897,co:"USA",cal:"12 gauge",ac:"Pump, slamfire",wt:3.6,ln:1000,cap:6,rpm:0,dmg:88,rng:35,han:62,rel:90,rar:"R",pr:"$800",d:"The Trench Broom — hold the trigger and pump for slam-fire fury, WWI protest notes from Germany.",f:"Germany protested its trench use in 1918 as 'inhumane' — the US replied: try stopping us.",s:{bl:90,mg:"tube",sc:0,wd:1,st:"wood",sp:0}},
+{n:"Ithaca 37",c:"Shotgun",y:1937,co:"USA",cal:"12 gauge",ac:"Pump, bottom-eject",wt:3.2,ln:1000,cap:8,rpm:0,dmg:84,rng:35,han:76,rel:94,rar:"U",pr:"$600",d:"The ambidextrous featherweight — bottom eject, slam-fire capable, NYPD stakeout legend.",f:"John Browning's last shotgun patent — ejects downward so lefties never eat shells.",s:{bl:88,mg:"tube",sc:0,wd:1,st:"wood",sp:0}},
+{n:"AA-12",c:"Shotgun",y:1981,co:"USA",cal:"12 gauge",ac:"Gas full-auto",wt:5.2,ln:991,cap:20,rpm:300,dmg:80,rng:60,han:55,rel:92,rar:"L",pr:"$5,000",d:"Full-auto 12-gauge that fires FRAG grenades — recoilless action, helicopter door-gun dreams.",f:"It can fire from open bolt underwater and keep cycling — tested in a swimming pool.",s:{bl:82,mg:"drum",sc:1,wd:0,st:"full",sp:0}},
+{n:"StG44",c:"Assault Rifle",y:1944,co:"Germany",cal:"7.92×33mm",ac:"Gas, tilting bolt",wt:4.6,ln:940,cap:30,rpm:550,dmg:60,rng:350,han:62,rel:85,rar:"L",pr:"$4,000",d:"The ORIGINAL assault rifle — 'storm rifle' that coined the term and fathered the AK and M16.",f:"Hitler delayed it for a year because he wanted rifles, not 'machine carbines' — officers renamed it to sneak it through.",s:{bl:82,mg:"curved",sc:0,wd:1,st:"wood",sp:0}},
+{n:"AK-12",c:"Assault Rifle",y:2012,co:"Russia",cal:"5.45×39mm",ac:"Gas, rotating bolt",wt:3.3,ln:945,cap:30,rpm:700,dmg:56,rng:400,han:82,rel:96,rar:"U",pr:"$1,200",d:"The Ratnik reboot — railed, ergonomic, 2-round burst, the Kalashnikov grows up.",f:"Its rear sight flips from 100m to dioptre — first AK with a real aperture sight.",s:{bl:82,mg:"curved",sc:1,wd:0,st:"wire",sp:0}},
+{n:"AN-94",c:"Assault Rifle",y:1994,co:"Russia",cal:"5.45×39mm",ac:"Blowback-shifted pulse",wt:3.9,ln:943,cap:30,rpm:1800,dmg:57,rng:400,han:70,rel:72,rar:"E",pr:"$2,500",d:"The hyperburst freak — first two rounds leave at 1,800 rpm before recoil even arrives.",f:"The barrel and action RIDE backwards on a pulley — watch slow-mo and it looks possessed.",s:{bl:80,mg:"curved",sc:1,wd:0,st:"full",sp:0}},
+{n:"Galil ARM",c:"Assault Rifle",y:1972,co:"Israel",cal:"5.56×45mm",ac:"Gas, Kalashnikov",wt:4.3,ln:1050,cap:35,rpm:650,dmg:57,rng:400,han:66,rel:97,rar:"R",pr:"$2,000",d:"AK perfected for the desert — bottle-opener bipod, tritium night sights, never stops.",f:"The bipod doubles as a wire cutter and bottle opener — Israeli conscript priorities.",s:{bl:84,mg:"curved",sc:1,wd:1,st:"wire",sp:1}},
+{n:"QBZ-95",c:"Assault Rifle",y:1997,co:"China",cal:"5.8×42mm",ac:"Bullpup, piston",wt:3.3,ln:745,cap:30,rpm:650,dmg:56,rng:400,han:86,rel:88,rar:"U",pr:"$1,000",d:"China's bullpup millions — high-velocity 5.8 needle round, rear-heavy balance, PLA standard.",f:"The 5.8×42 round out-penetrates both 5.56 and 5.45 at 300m — purpose-built to beat them.",s:{bl:72,mg:"straight",sc:1,wd:0,st:"full",sp:0}},
+{n:"FN F2000",c:"Assault Rifle",y:2001,co:"Belgium",cal:"5.56×45mm",ac:"Bullpup, piston",wt:3.6,ln:688,cap:30,rpm:750,dmg:55,rng:380,han:88,rel:86,rar:"E",pr:"$2,400",d:"The video-game tuna — forward-ejecting bullpup that spits brass out the nose, fully ambidextrous.",f:"Spent cases travel a 40cm tube and pop out the front — lefties never get hit.",s:{bl:66,mg:"straight",sc:2,wd:0,st:"full",sp:0}},
+{n:"HK416",c:"Assault Rifle",y:2004,co:"Germany",cal:"5.56×45mm",ac:"Short-stroke piston",wt:3.6,ln:900,cap:30,rpm:850,dmg:58,rng:400,han:84,rel:96,rar:"R",pr:"$2,800",d:"The M4 fixed — piston-driven, over-the-beach reliable, the rifle that got Bin Laden.",f:"Delta calls it the 'brown gun' — its 416 uppers turned M4 lowers into piston guns overnight.",s:{bl:80,mg:"curved",sc:1,wd:0,st:"wire",sp:0}},
+{n:"Honey Badger",c:"Assault Rifle",y:2013,co:"USA",cal:".300 BLK",ac:"Direct impingement",wt:2.9,ln:762,cap:30,rpm:800,dmg:62,rng:300,han:90,rel:88,rar:"E",pr:"$2,600",d:"Whisper-quiet PDW — .300 Blackout punch from an AR the size of an MP5, integrally suppressed.",f:"Subsonic .300 BLK through its can is quieter than a nail gun — 120 decibels down to 118.",s:{bl:60,mg:"curved",sc:1,wd:0,st:"wire",sp:1}},
+{n:"BAR M1918",c:"Battle Rifle",y:1918,co:"USA",cal:".30-06",ac:"Gas, tilting",wt:8.8,ln:1214,cap:20,rpm:550,dmg:72,rng:500,han:42,rel:88,rar:"E",pr:"$3,000",d:"The walking-fire legend — Browning's 20-pound automatic rifle, WWI to Korea to Bonnie & Clyde.",f:"Clyde Barrow stole a BAR and called it his 'whippet' — it punched through police cars.",s:{bl:96,mg:"boxmag",sc:0,wd:1,st:"wood",sp:1}},
+{n:"FG42",c:"Battle Rifle",y:1942,co:"Germany",cal:"7.92×57mm",ac:"Gas, rotating",wt:4.5,ln:1000,cap:20,rpm:750,dmg:71,rng:500,han:58,rel:75,rar:"L",pr:"$6,000",d:"Paratrooper's grail — rifle, LMG and sniper in one skeletal side-mag package. Only 7,000 made.",f:"Its muzzle brake is so violent testers bled from the nose — and it still kicks like a mule.",s:{bl:90,mg:"boxmag",sc:2,wd:0,st:"full",sp:1}},
+{n:"PSG-1",c:"DMR",y:1972,co:"Germany",cal:"7.62×51mm",ac:"Roller semi",wt:8.1,ln:1208,cap:20,rpm:0,dmg:76,rng:800,han:40,rel:88,rar:"E",pr:"$10,000",d:"Munich-massacre answer — the most accurate semi-auto ever built, silent bolt close, piano-trigger.",f:"Each barrel is hammer-forged with polygonal rifling — H&K test-fires every one past 600m.",s:{bl:108,mg:"boxmag",sc:2,wd:0,st:"full",sp:1}},
+{n:"VSS Vintorez",c:"DMR",y:1987,co:"USSR",cal:"9×39mm",ac:"Gas, suppressed",wt:2.6,ln:894,cap:20,rpm:700,dmg:58,rng:400,han:74,rel:90,rar:"E",pr:"$3,000",d:"The thread-cutter — integrally suppressed Spetsnaz rifle that defeats armor with a whisper.",f:"Its giant suppressor hides 9mm heavy subsonic rounds — louder to cock than to fire.",s:{bl:78,mg:"boxmag",sc:2,wd:1,st:"wood",sp:1}},
+{n:"M40A5",c:"Sniper",y:1966,co:"USA",cal:".308 Win",ac:"Bolt, 700 action",wt:6.6,ln:1120,cap:10,rpm:0,dmg:82,rng:900,han:52,rel:95,rar:"R",pr:"$4,000",d:"Marine Scout-Sniper's scalpel — hand-built 700 action, McMillan stock, Hathcock's heir.",f:"Carlos Hathcock's M40 lineage holds a 2,500-yard kill with a scoped M2 — with this family.",s:{bl:110,mg:"boxmag",sc:2,wd:0,st:"full",sp:1}},
+{n:"L96A1",c:"Sniper",y:1982,co:"UK",cal:".308 Win",ac:"Bolt",wt:6.5,ln:1180,cap:10,rpm:0,dmg:84,rng:900,han:50,rel:96,rar:"R",pr:"$4,200",d:"Arctic Warfare's father — green box-stock legend, sub-half-MOA, SAS cold-weather ghost.",f:"Its receiver beds on an aluminum spine — the stock can crack in half and zero holds.",s:{bl:110,mg:"boxmag",sc:2,wd:0,st:"full",sp:1}},
+{n:"McMillan TAC-50",c:"Sniper",y:2000,co:"USA",cal:".50 BMG",ac:"Bolt",wt:11.8,ln:1448,cap:5,rpm:0,dmg:98,rng:2000,han:26,rel:92,rar:"L",pr:"$11,000",d:"Record-breaker — 3,540m confirmed kill in Iraq, the longest sniper shot in history.",f:"The 2017 record bullet flew 10 seconds — the target walked 30 feet in that time.",s:{bl:124,mg:"boxmag",sc:2,wd:0,st:"full",sp:1}},
+{n:"MG34",c:"Machine Gun",y:1934,co:"Germany",cal:"7.92×57mm",ac:"Recoil, rotating",wt:12.0,ln:1219,cap:250,rpm:900,dmg:66,rng:800,han:34,rel:82,rar:"R",pr:"$4,500",d:"The first general-purpose MG — milled jewel that could be light, heavy or AA with a kit change.",f:"It was too beautiful for war — 150 precision parts, so Germany replaced it with the stamped MG42.",s:{bl:100,mg:"belt",sc:0,wd:1,st:"full",sp:1}},
+{n:"M60",c:"Machine Gun",y:1957,co:"USA",cal:"7.62×51mm",ac:"Gas",wt:10.5,ln:1105,cap:200,rpm:550,dmg:68,rng:800,han:38,rel:80,rar:"U",pr:"$3,500",d:"'The Pig' of Vietnam — Rambo's hip-fire icon, gas system that needed love and asbestos gloves.",f:"Spare barrels came with an asbestos mitt — crews tossed glowing barrels like hot potatoes.",s:{bl:98,mg:"belt",sc:0,wd:0,st:"full",sp:1}},
+{n:"RPK",c:"Machine Gun",y:1961,co:"USSR",cal:"7.62×39mm",ac:"Gas, Kalashnikov",wt:5.0,ln:1040,cap:75,rpm:600,dmg:58,rng:600,han:55,rel:97,rar:"C",pr:"$1,200",d:"The AK stretched — long barrel, drum-fed squad gun every insurgency still carries.",f:"Its chrome bore survives thousands of rounds — some Afghan RPKs are 50 years old and running.",s:{bl:96,mg:"drum",sc:0,wd:1,st:"wood",sp:1}},
+{n:"RPD",c:"Machine Gun",y:1944,co:"USSR",cal:"7.62×39mm",ac:"Gas, belt",wt:7.4,ln:1037,cap:100,rpm:650,dmg:60,rng:600,han:45,rel:94,rar:"U",pr:"$2,000",d:"The drum-fed jungle soundtrack — 100-round belt in a can, Vietnam to every conflict since.",f:"The belt segments into the drum as it fires — the can rattles empty like a lunchbox.",s:{bl:94,mg:"drum",sc:0,wd:1,st:"wood",sp:1}},
+{n:"M134 Minigun",c:"Machine Gun",y:1963,co:"USA",cal:"7.62×51mm",ac:"Electric Gatling",wt:39.0,ln:800,cap:4000,rpm:3000,dmg:70,rng:800,han:12,rel:90,rar:"L",pr:"$30,000",d:"The Predator buzzsaw — 3,000 rpm electric Gatling that sounds like a chainsaw from hell.",f:"It fires so fast the muzzle flash merges into one continuous fireball.",s:{bl:70,mg:"belt",sc:0,wd:0,st:"full",sp:0}},
+{n:"Lewis Gun",c:"Machine Gun",y:1911,co:"UK / USA",cal:".303 British",ac:"Gas, pan mag",wt:13.0,ln:1280,cap:97,rpm:550,dmg:62,rng:700,han:32,rel:85,rar:"R",pr:"$3,800",d:"The WWI pan-muffin — top drum, cooling shroud, aircraft and infantry icon from the Somme to the skies.",f:"Its 97-round pan rotates like a clock — each shot indexes the next round mechanically.",s:{bl:98,mg:"drum",sc:0,wd:1,st:"wood",sp:1}},
+{n:"DShK",c:"Machine Gun",y:1938,co:"USSR",cal:"12.7×108mm",ac:"Gas, belt",wt:34.0,ln:1625,cap:50,rpm:600,dmg:92,rng:1500,han:16,rel:93,rar:"E",pr:"$8,000",d:"'Dushka' the heavy hitter — Soviet .50 that guards every technical, tank and rooftop from 1938 to today.",f:"Its butterfly triggers are squeezed like handlebars — gunners steer tracers like a bike.",s:{bl:116,mg:"belt",sc:1,wd:0,st:"full",sp:0}}
+];
+let RN={C:"COMMON",U:"UNCOMMON",R:"RARE",E:"EPIC",L:"LEGENDARY"};
+let RC={C:"#9a9a9a",U:"#3fa34d",R:"#4a90e2",E:"#b04ae2",L:"#e8b34b"};
+let state={q:"",cls:"All",sort:"name",list:[...G],idx:0,cmp:[]};
+function gunSVG(g){
+let s=g.s,c=g.c,wd=s.wd,bl=Math.max(34,Math.min(150,s.bl)),isP=(c==="Pistol"||c==="Revolver"),isS=(c==="Sniper"||c==="DMR"),isM=(c==="Machine Gun");
+let D="#0e1013",L="#4b525c",B="#c8ccd4";
+let stock="";
+if(s.st==="wood")stock='<path d="M8 62 L86 62 L86 88 L20 92 Q8 92 8 80 Z" fill="url(#wg)" stroke="#3a2410" stroke-width="2.5"/><path d="M20 68 Q50 70 76 72" stroke="#5a3a18" stroke-width="1.5" fill="none" opacity=".7"/><path d="M20 78 Q50 80 76 80" stroke="#5a3a18" stroke-width="1.2" fill="none" opacity=".6"/><circle cx="30" cy="76" r="2.5" fill="#2a1a08"/>';
+else if(s.st==="full")stock='<path d="M14 60 L88 60 L88 84 L30 90 Q14 90 14 76 Z" fill="url(#mg)" stroke="'+D+'" stroke-width="2.5"/><rect x="20" y="64" width="52" height="4" fill="#000" opacity=".35"/><circle cx="34" cy="76" r="2.5" fill="#000"/><rect x="60" y="76" width="20" height="8" fill="#000" opacity=".4"/>';
+else if(s.st==="wire")stock='<rect x="16" y="64" width="62" height="7" rx="3" fill="url(#mg)" stroke="'+D+'" stroke-width="2"/><rect x="16" y="64" width="12" height="26" rx="2" fill="#22262c" stroke="'+D+'" stroke-width="2"/><line x1="40" y1="67.5" x2="72" y2="67.5" stroke="#000" opacity=".4"/>';
+let recvX=isP?150:92,recvW=isP?110:112;
+let recv='<rect x="'+recvX+'" y="58" width="'+recvW+'" height="28" rx="4" fill="url(#mg)" stroke="'+D+'" stroke-width="2.5"/><rect x="'+recvX+'" y="58" width="'+recvW+'" height="7" fill="#fff" opacity=".14"/><rect x="'+(recvX+8)+'" y="66" width="'+(isP?60:52)+'" height="6" rx="2" fill="#000" opacity=".5"/><circle cx="'+(recvX+14)+'" cy="78" r="2.6" fill="#0a0b0d" stroke="'+L+'"/><circle cx="'+(recvX+recvW-14)+'" cy="78" r="2.6" fill="#0a0b0d" stroke="'+L+'"/>';
+if(!isP)recv+='<path d="M'+(recvX+recvW-24)+' 58 l10 -8 l8 0 l-4 8 Z" fill="#22262c" stroke="'+D+'" stroke-width="1.6"/>';
+let gripH=isP?44:34,gripX=isP?168:132;
+let grip='<path d="M'+gripX+' 84 L'+(gripX+22)+' 84 L'+(gripX+16)+' '+(84+gripH)+' L'+(gripX-4)+' '+(84+gripH)+' Z" fill="'+(wd?"url(#wg)":"#24282f")+'" stroke="'+D+'" stroke-width="2.5"/>'+(wd?'<line x1="'+(gripX+4)+'" y1="94" x2="'+(gripX+18)+'" y2="92" stroke="#5a3a18"/>':('<line x1="'+(gripX+2)+'" y1="94" x2="'+(gripX+20)+'" y2="94" stroke="#000" opacity=".5"/><line x1="'+(gripX+1)+'" y1="100" x2="'+(gripX+19)+'" y2="100" stroke="#000" opacity=".5"/>'));
+let guard='<path d="M'+(gripX+22)+' 86 q24 1 22 16 l-26 1 q3 -11 -8 -13" fill="none" stroke="'+D+'" stroke-width="2.4"/><path d="M'+(gripX+32)+' 87 l3 10" stroke="'+D+'" stroke-width="3"/>';
+let mag="";
+if(s.mg==="curved")mag='<path d="M188 86 L176 124 L196 128 L214 90 Z" fill="url(#mg)" stroke="'+D+'" stroke-width="2.4"/><line x1="184" y1="96" x2="206" y2="99" stroke="#000" opacity=".45"/><line x1="181" y1="106" x2="203" y2="109" stroke="#000" opacity=".45"/><rect x="176" y="122" width="22" height="6" rx="2" fill="#101216"/>';
+else if(s.mg==="straight")mag='<rect x="184" y="86" width="18" height="38" rx="2" transform="rotate(9 193 86)" fill="url(#mg)" stroke="'+D+'" stroke-width="2.4"/><line x1="187" y1="96" x2="199" y2="95" stroke="#000" opacity=".5"/><rect x="182" y="120" width="22" height="6" rx="2" fill="#101216"/>';
+else if(s.mg==="boxmag")mag='<rect x="182" y="86" width="22" height="34" rx="2" fill="url(#mg)" stroke="'+D+'" stroke-width="2.4"/><line x1="185" y1="94" x2="201" y2="94" stroke="#000" opacity=".5"/><line x1="185" y1="102" x2="201" y2="102" stroke="#000" opacity=".5"/>';
+else if(s.mg==="drum")mag='<circle cx="196" cy="106" r="20" fill="url(#mg)" stroke="'+D+'" stroke-width="2.5"/><circle cx="196" cy="106" r="12" fill="none" stroke="#000" opacity=".5"/><circle cx="196" cy="106" r="4.5" fill="#0a0b0d" stroke="'+L+'"/>';
+else if(s.mg==="cyl")mag='<ellipse cx="172" cy="72" rx="15" ry="13" fill="url(#mg)" stroke="'+D+'" stroke-width="2.5"/><line x1="162" y1="63" x2="162" y2="81" stroke="#000" opacity=".5"/><line x1="172" y1="60" x2="172" y2="84" stroke="#000" opacity=".5"/><line x1="182" y1="63" x2="182" y2="81" stroke="#000" opacity=".5"/><path d="M186 62 l14 -8 l4 3 l-12 9 Z" fill="#22262c" stroke="'+D+'" stroke-width="1.6"/>';
+else if(s.mg==="tube")mag='<rect x="206" y="78" width="'+(bl*0.72).toFixed(0)+'" height="8" rx="4" fill="'+(wd?"url(#wg)":"url(#mg)")+'" stroke="'+D+'" stroke-width="2"/><circle cx="'+(214)+'" cy="82" r="2" fill="#000"/>';
+else if(s.mg==="top")mag='<rect x="128" y="44" width="128" height="13" rx="6.5" fill="url(#mg)" stroke="'+D+'" stroke-width="2.2"/><line x1="140" y1="50.5" x2="244" y2="50.5" stroke="#000" opacity=".4"/><rect x="150" y="57" width="10" height="6" fill="#22262c"/>';
+else if(s.mg==="belt")mag='<rect x="150" y="86" width="52" height="13" rx="2" fill="#8a6f2e" stroke="'+D+'" stroke-width="2"/><circle cx="160" cy="92.5" r="4" fill="#e8c85a" stroke="'+D+'"/><circle cx="172" cy="92.5" r="4" fill="#e8c85a" stroke="'+D+'"/><circle cx="184" cy="92.5" r="4" fill="#e8c85a" stroke="'+D+'"/><rect x="196" y="86" width="22" height="20" rx="2" fill="#3a3f47" stroke="'+D+'" stroke-width="2"/>';
+let bx=isP?260:204;
+let barrel='<rect x="'+bx+'" y="'+(isP?62:60)+'" width="'+bl+'" height="'+(isP?10:isM?14:11)+'" fill="url(#mg)" stroke="'+D+'" stroke-width="2.4"/><rect x="'+bx+'" y="'+(isP?62:isM?60:60)+'" width="'+bl+'" height="3" fill="#fff" opacity=".18"/>';
+if(isM){let hx="";for(let i=0;i<5;i++)hx+='<circle cx="'+(bx+14+i*16)+'" cy="67" r="3.2" fill="#0a0b0d"/>';barrel+='<rect x="'+bx+'" y="72" width="'+(bl*0.6).toFixed(0)+'" height="16" rx="4" fill="#22262c" stroke="'+D+'" stroke-width="2"/>'+hx;}
+barrel+='<rect x="'+(bx+bl)+'" y="'+(isP?60:57)+'" width="'+(isS?22:13)+'" height="'+(isP?14:isS?17:17)+'" rx="2" fill="#101216" stroke="'+D+'"/>';
+if(isS){barrel+='<line x1="'+(bx+bl+4)+'" y1="60" x2="'+(bx+bl+4)+'" y2="71" stroke="'+L+'"/><line x1="'+(bx+bl+10)+'" y1="60" x2="'+(bx+bl+10)+'" y2="71" stroke="'+L+'"/>';}
+let hand="";
+if(!isP){
+let hw=Math.max(30,(bl*0.5).toFixed(0));
+hand='<rect x="'+bx+'" y="73" width="'+hw+'" height="13" rx="5" fill="'+(wd?"url(#wg)":"#24282f")+'" stroke="'+D+'" stroke-width="2.2"/>';
+if(!wd){let vx="";for(let i=0;i<4;i++)vx+='<line x1="'+(bx+10+i*12)+'" y1="75" x2="'+(bx+10+i*12)+'" y2="84" stroke="#000" opacity=".6"/>';hand+=vx;}
+else hand+='<path d="M'+(bx+8)+' 77 Q'+(bx+hw/2)+' 79 '+(bx+hw-8)+' 77" stroke="#5a3a18" fill="none"/>';
+}
+let sight="";
+if(c==="Revolver")sight='<rect x="'+(bx+bl-14)+'" y="52" width="5" height="9" fill="'+D+'"/><path d="M164 58 l-8 -12 l6 -2 l8 12 Z" fill="#22262c" stroke="'+D+'" stroke-width="1.5"/>';
+else if(s.sc===2)sight='<rect x="152" y="50" width="9" height="9" fill="'+D+'"/><rect x="212" y="50" width="9" height="9" fill="'+D+'"/><rect x="146" y="38" width="86" height="15" rx="7" fill="#14171b" stroke="'+B+'" stroke-width="1.8"/><rect x="182" y="32" width="14" height="8" fill="#22262c" stroke="'+B+'"/><rect x="152" y="41" width="10" height="9" fill="#6fb7ff" opacity=".8"/><line x1="160" y1="45.5" x2="226" y2="45.5" stroke="#fff" opacity=".35"/>';
+else if(s.sc===1)sight='<rect x="152" y="48" width="11" height="11" fill="'+D+'"/><path d="M232 48 l8 0 l-4 11 l-8 0 Z" fill="'+D+'"/><rect x="150" y="46" width="15" height="4" fill="'+D+'"/>';
+else if(c==="Shotgun")sight='<circle cx="'+(bx+bl-4)+'" cy="57" r="2.6" fill="#e8c85a" stroke="'+D+'"/>';
+else sight='<rect x="152" y="48" width="6" height="11" fill="'+D+'"/><rect x="'+(bx+bl-24)+'" y="50" width="5" height="11" fill="'+D+'"/>';
+let extra="";
+if(s.sp)extra='<line x1="236" y1="86" x2="226" y2="122" stroke="#101216" stroke-width="5" stroke-linecap="round"/><line x1="252" y1="86" x2="262" y2="122" stroke="#101216" stroke-width="5" stroke-linecap="round"/><line x1="226" y1="122" x2="218" y2="122" stroke="#101216" stroke-width="4"/><line x1="262" y1="122" x2="270" y2="122" stroke="#101216" stroke-width="4"/>';
+if(c==="Revolver")extra+='<path d="M150 60 q-10 -4 -12 -14 l7 -2 q2 8 10 10 Z" fill="#22262c" stroke="'+D+'" stroke-width="1.6"/>';
+if(c==="Rifle"&&wd)extra+='<circle cx="120" cy="70" r="2" fill="#2a1a08"/>';
+let ser="";
+if(!isP)ser='<rect x="'+(recvX+34)+'" y="72" width="30" height="7" fill="#000" opacity=".45"/>';
+return '<svg viewBox="0 0 460 150"><defs><linearGradient id="mg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a515b"/><stop offset=".45" stop-color="#2b3038"/><stop offset="1" stop-color="#171a1f"/></linearGradient><linearGradient id="wg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b07a3a"/><stop offset=".5" stop-color="#8a5a2b"/><stop offset="1" stop-color="#5e3a15"/></linearGradient></defs><ellipse cx="230" cy="132" rx="175" ry="9" fill="#000" opacity=".22"/>'+extra+stock+recv+grip+guard+mag+barrel+hand+sight+ser+'</svg>';
+}
+let pills=["All","Pistol","Revolver","SMG","Shotgun","Rifle","Assault Rifle","Battle Rifle","DMR","Sniper","Machine Gun"];
+function renderPills(){
+let r=document.getElementById("pillRow");
+r.innerHTML=pills.map(p=>`<button class="pill ${state.cls===p?'on':''}" data-c="${p}">${p}</button>`).join("");
+r.querySelectorAll("button").forEach(b=>b.onclick=()=>{state.cls=b.dataset.c;apply()});
+}
+function bar(v){return `<span class="b"><i>${v}</i><u><s style="width:${v}%"></s></u></span>`}
+function apply(){
+let q=state.q.toLowerCase();
+state.list=G.filter(g=>(state.cls==="All"||g.c===state.cls)&&(!q||(g.n+" "+g.co+" "+g.cal+" "+g.c+" "+g.y).toLowerCase().includes(q)));
+let k=state.sort;
+state.list.sort((a,b)=>k==="name"?a.n.localeCompare(b.n):k==="year"?a.y-b.y:b[k==="rng"?"rng":k]- (a[k==="rng"?"rng":k]));
+let gr=document.getElementById("gridEl");
+document.getElementById("countEl").textContent=state.list.length+" / "+G.length+" plates catalogued";
+gr.innerHTML=state.list.map((g,i)=>{let gi=G.indexOf(g);return `<div class="card" data-i="${gi}"><div class="illus"><span class="rar r-${g.rar}">${RN[g.rar]}</span><span class="cls">${g.c.toUpperCase()}</span>${gunSVG(g)}</div><div class="cardbody"><h3>${g.n} <small>${g.y}</small></h3><div class="meta">${g.co} · ${g.cal}</div><div class="desc">${g.d}</div><div class="bars">${bar(g.dmg)}${bar(g.rpm?Math.min(100,g.rpm/12):20)}${bar(Math.min(100,g.rng/18))}${bar(g.han)}</div></div></div>`}).join("");
+gr.querySelectorAll(".card").forEach(c=>c.onclick=()=>openM(parseInt(c.dataset.i)));
+}
+function statRow(l,v){return `<div class="stat"><label><span>${l}</span><span>${v}/100</span></label><div class="track"><div class="fill" style="width:${v}%"></div></div></div>`}
+function openM(i){
+state.idx=i;let g=G[i];
+document.getElementById("mIllus").innerHTML=`<span class="rar r-${g.rar}">${RN[g.rar]}</span><span class="cls">${g.c.toUpperCase()}</span>${gunSVG(g)}`;
+document.getElementById("mName").textContent="#"+(i+1)+" — "+g.n;
+document.getElementById("mSub").textContent=`${g.y} · ${g.co} · ${g.c} · ${g.pr}`;
+document.getElementById("mTable").innerHTML=`<tr><td>Caliber</td><td><b>${g.cal}</b></td></tr><tr><td>Action</td><td>${g.ac}</td></tr><tr><td>Weight</td><td>${g.wt} kg</td></tr><tr><td>Length</td><td>${g.ln} mm</td></tr><tr><td>Capacity</td><td>${g.cap} rds</td></tr><tr><td>Fire rate</td><td>${g.rpm?g.rpm+" rpm":"single / semi"}</td></tr><tr><td>Eff. range</td><td>${g.rng} m</td></tr><tr><td>Rarity</td><td style="color:${RC[g.rar]}"><b>${RN[g.rar]}</b></td></tr>`;
+document.getElementById("mStats").innerHTML=statRow("DAMAGE",g.dmg)+statRow("FIRE RATE",g.rpm?Math.min(100,Math.round(g.rpm/12)):12)+statRow("RANGE",Math.min(100,Math.round(g.rng/18)))+statRow("HANDLING",g.han)+statRow("RELIABILITY",g.rel);
+document.getElementById("mDesc").textContent=g.d;
+document.getElementById("mFact").textContent="★ Gunsmith note: "+g.f;
+document.getElementById("modalEl").classList.add("on");
+updateCmp();
+}
+function updateCmp(){
+let e=document.getElementById("cmpEl");
+if(!state.cmp.length){e.classList.remove("on");return}
+e.classList.add("on");
+e.innerHTML="⚖ comparing: "+state.cmp.map(i=>G[i].n).join(" vs ")+` <button onclick="clearCmp()" style="margin-left:8px;background:#e8b34b;border:0;border-radius:6px;padding:4px 10px;cursor:pointer">clear</button> `+ (state.cmp.length>=2?`<span> — ${state.cmp.map(i=>G[i].n+" (DMG "+G[i].dmg+", RNG "+G[i].rng+"m)").join(" | ")}</span>`:" <span style='opacity:.6'>(pick one more to compare)</span>");
+}
+window.clearCmp=function(){state.cmp=[];updateCmp()};
+document.getElementById("mClose").onclick=()=>document.getElementById("modalEl").classList.remove("on");
+document.getElementById("modalEl").onclick=e=>{if(e.target.id==="modalEl")e.target.classList.remove("on")};
+document.getElementById("mPrev").onclick=()=>openM((state.idx-1+G.length)%G.length);
+document.getElementById("mNext").onclick=()=>openM((state.idx+1)%G.length);
+document.getElementById("mRand").onclick=()=>openM(Math.floor(Math.random()*G.length));
+document.getElementById("mCmp").onclick=()=>{if(!state.cmp.includes(state.idx))state.cmp.push(state.idx);if(state.cmp.length>3)state.cmp.shift();updateCmp()};
+document.getElementById("qInput").oninput=e=>{state.q=e.target.value;apply()};
+document.getElementById("sortSel").onchange=e=>{state.sort=e.target.value;apply()};
+document.getElementById("randBtn").onclick=()=>openM(Math.floor(Math.random()*G.length));
+addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("modalEl").classList.remove("on");if(document.getElementById("modalEl").classList.contains("on")){if(e.key==="ArrowRight")openM((state.idx+1)%G.length);if(e.key==="ArrowLeft")openM((state.idx-1+G.length)%G.length)}});
+let LV={scrap:500,owned:{},loots:0};
+try{let s=JSON.parse(localStorage.armoryLootV1||'null');if(s&&typeof s.scrap==='number')LV=s;}catch(e){}
+function lsave(){try{localStorage.armoryLootV1=JSON.stringify(LV)}catch(e){}}
+let CR=[
+{id:'field',n:'📦 FIELD CACHE',c:100,d:'Dusty surplus crate. Mostly commons, lucky rares.',o:{C:70,U:22,R:7,E:1,L:0}},
+{id:'op',n:'🎖 OPERATOR CASE',c:300,d:'Active-duty hardware. Rare+ likely, Epic possible, whisper of Legend.',o:{C:40,U:35,R:18,E:6,L:1}},
+{id:'black',n:'🕶 BLACKSITE VAULT',c:800,d:'Prototype vault. Zero commons. Legends hide here at 5%.',o:{C:0,U:30,R:45,E:20,L:5}}];
+let DUP={C:20,U:50,R:120,E:300,L:800};
+let rolling=false;
+function showV(v){
+for(let b of document.querySelectorAll('.vbtn'))b.classList.remove('on');
+document.getElementById('vCat').classList.toggle('on',v==='cat');
+document.getElementById('vLoot').classList.toggle('on',v==='loot');
+document.getElementById('vCol').classList.toggle('on',v==='col');
+let cat=v==='cat';
+document.querySelector('.hero').hidden=!cat;
+document.getElementById('pillRow').hidden=!cat;
+document.getElementById('gridEl').hidden=!cat;
+document.getElementById('lootEl').hidden=v!=='loot';
+document.getElementById('colEl').hidden=v!=='col';
+document.getElementById('cmpEl').classList.remove('on');
+if(v==='loot')renderLoot();
+if(v==='col')renderCol();
+}
+function rollRar(o){
+let r=Math.random()*100,acc=0;
+for(let k of ['C','U','R','E','L']){acc+=o[k];if(r<acc)return k;}
+return 'C';
+}
+function gunOfRar(r){
+let pool=[];
+for(let i=0;i<G.length;i++)if(G[i].rar===r)pool.push(i);
+if(!pool.length)return Math.floor(Math.random()*G.length);
+return pool[Math.floor(Math.random()*pool.length)];
+}
+function syncScrap(){document.getElementById('scrapEl').textContent=LV.scrap;}
+function renderLoot(){
+syncScrap();
+document.getElementById('lootCount').textContent=Object.keys(LV.owned).length+' / '+G.length+' owned · '+LV.loots+' crates cracked';
+document.getElementById('crateRow').innerHTML=CR.map(c=>'<div class="crate"><h3>'+c.n+'</h3><div class="cost">⚙ '+c.c+' SCRAP</div><p>'+c.d+'</p><button '+(rolling||LV.scrap<c.c?'disabled':'')+' onclick="openCrate(\''+c.id+'\')">'+(LV.scrap<c.c?'NEED SCRAP':'OPEN')+'</button></div>').join('');
+tickScav();
+}
+function tickScav(){
+let b=document.getElementById('scavBtn');
+let dt=Math.floor(Date.now()/1000)-(LV.scav||0);
+if(dt>=30){b.disabled=false;b.textContent='🔧 SCAVENGE +50';}
+else{b.disabled=true;b.textContent='⏳ SCAVENGE ('+(30-dt)+'s)';}
+}
+setInterval(()=>{let b=document.getElementById('scavBtn');if(b&&!document.getElementById('lootEl').hidden)tickScav();},1000);
+function openCrate(id){
+if(rolling)return;
+let c=CR.find(x=>x.id===id);
+if(!c||LV.scrap<c.c)return;
+LV.scrap-=c.c;LV.loots++;rolling=true;renderLoot();
+let box=document.getElementById('rollBox');
+box.classList.remove('hit');
+let target=gunOfRar(rollRar(c.o));
+let n=0;
+let iv=setInterval(()=>{
+let f=Math.floor(Math.random()*G.length);
+box.innerHTML='<div class="miss">CALIBRATING…</div><div class="rname">'+G[f].n+'</div>';
+if(++n>14){
+clearInterval(iv);
+let g=G[target],isNew=!LV.owned[target];
+LV.owned[target]=(LV.owned[target]||0)+1;
+let bonus=0;
+if(isNew){bonus=25;LV.scrap+=bonus;}
+else LV.scrap+=DUP[g.rar];
+lsave();rolling=false;
+box.classList.add('hit');
+box.innerHTML='<div class="rsvg'+(false?'':'')+'">'+gunSVG(g)+'</div><div><span class="rar r-'+g.rar+'">'+RN[g.rar]+'</span></div><div class="rname">'+g.n+' <small style="opacity:.6;font-size:13px">'+g.y+' · '+g.cal+'</small></div><div class="miss">'+(isNew?'✦ NEW DISCOVERY +25 ⚙':'DUPLICATE → salvaged +'+DUP[g.rar]+' ⚙')+'</div><div class="row" style="max-width:420px;margin:10px auto 0"><button onclick="openM('+target+')">📖 DOSSIER</button><button class="ghost" onclick="openCrate(\''+id+'\')">↻ AGAIN</button></div>';
+renderLoot();
+}
+},70);
+}
+function renderCol(){
+syncScrap();
+let ids=Object.keys(LV.owned).map(Number).sort((a,b)=>G[a].n.localeCompare(G[b].n));
+let pct=Math.round(ids.length/G.length*100);
+document.getElementById('colSummary').textContent='The vault so far — '+pct+'% of the bestiary bound. Duplicates already salvaged for you.';
+document.getElementById('colCount').textContent=ids.length+' / '+G.length;
+document.getElementById('colGrid').innerHTML=ids.length?ids.map(i=>{let g=G[i];return '<div class="card" data-i="'+i+'"><div class="illus"><span class="rar r-'+g.rar+'">'+RN[g.rar]+'</span><span class="cls">'+g.c.toUpperCase()+'</span><span class="obadge">×'+LV.owned[i]+'</span>'+gunSVG(g)+'</div><div class="cardbody"><h3>'+g.n+' <small>'+g.y+'</small></h3><div class="meta">'+g.co+' · '+g.cal+'</div></div></div>';}).join(''):'<div class="card"><div class="cardbody"><h3>No loot yet</h3><div class="desc">Hit the LOOT tab and crack your first crate.</div></div></div>';
+document.querySelectorAll('#colGrid .card[data-i]').forEach(el=>el.onclick=()=>openM(parseInt(el.dataset.i)));
+let miss=[];
+for(let i=0;i<G.length;i++)if(!LV.owned[i])miss.push(G[i].n);
+document.getElementById('missEl').textContent=miss.length?('MISSING ('+miss.length+'): '+miss.join(' · ')):'COMPLETE — every plate in the bestiary is yours. Legend.';
+}
+document.getElementById('vCat').onclick=()=>showV('cat');
+document.getElementById('vLoot').onclick=()=>showV('loot');
+document.getElementById('vCol').onclick=()=>showV('col');
+document.getElementById('scavBtn').onclick=()=>{
+let dt=Math.floor(Date.now()/1000)-(LV.scav||0);
+if(dt<30)return;
+LV.scav=Math.floor(Date.now()/1000);LV.scrap+=50;lsave();renderLoot();
+};
+document.getElementById('wipeBtn').onclick=()=>{if(confirm('Melt down the whole collection?')){LV={scrap:500,owned:{},loots:0};lsave();renderCol();}};
+syncScrap();
+renderPills();apply();showV('cat');
+</script>
+
+</body>
+</html>
